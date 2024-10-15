@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "dstoolkit"
+version = "0.1.0"
+description = "see github"
+authors = ["flapjackstan <elm.s.camargo@gmail.com>"]
+license = "see github"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.3"
+scikit-learn = "^1.5.2"
+plotly = "^5.24.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pylint = "^3.3.1"
+jupyter = "^1.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
