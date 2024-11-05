@@ -1,0 +1,38 @@
+# Only handle lint and typos
+name: Lint and Typos 
+on: push
+jobs:
+  lint-and-typos:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dev libraries via sudo apt-get
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y -f --no-install-recommends \
+            libkrb5-dev \
+            libcurl4-openssl-dev \
+            librtmp-dev \
+            libgeos-dev
+          sudo apt-get clean
+      - name: Run ruff
+        run: |
+          pipx run ruff check --output-format=github ./
+          pipx run ruff format --check --diff ./
+      - name: Set up pkgx
+        run: |
+          # We use pkgx because shellcheck (Haskell) and typos (Rust) are a pain to build as regular CI
+          curl https://pkgx.sh | sh
+      - name: Run typos
+        run: |
+          pushd $RUNNER_TEMP
+          curl -O https://raw.githubusercontent.com/crate-ci/typos/master/action/format_gh.sh
+          chmod a+x format_gh.sh
+          popd
+          pkgx +crates.io/typos typos . --format json | ${RUNNER_TEMP}/format_gh.sh || true
+          pkgx +crates.io/typos typos .
