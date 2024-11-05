@@ -1,8 +1,8 @@
 # Only handle lint and typos
-name: Lint, and Typos 
+name: Lint and Typos 
 on: push
 jobs:
-  lint_and_typos:
+  lint and typos:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
