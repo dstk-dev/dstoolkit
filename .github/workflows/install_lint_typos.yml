@@ -2,7 +2,7 @@
 name: Lint and Typos 
 on: push
 jobs:
-  lint and typos:
+  lint-and-typos:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
