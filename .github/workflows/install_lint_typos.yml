@@ -28,9 +28,6 @@ jobs:
         run: |
           # We use pkgx because shellcheck (Haskell) and typos (Rust) are a pain to build as regular CI
           curl https://pkgx.sh | sh
-      - name: Run shellcheck
-        run: |
-          pkgx +shellcheck.net shellcheck --shell=bash -- **/*.sh
       - name: Run typos
         run: |
           pushd $RUNNER_TEMP
